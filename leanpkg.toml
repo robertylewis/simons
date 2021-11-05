@@ -1,0 +1,9 @@
+[package]
+name = "simons"
+version = "0.1"
+lean_version = "leanprover-community/lean:3.35.0"
+path = "src"
+
+[dependencies]
+mathlib = {git = "https://github.com/leanprover-community/mathlib", rev = "de79226c64ab6177029fdbd069fdfe40d252f7cd"}
+lean-liquid = {git = "https://github.com/leanprover-community/lean-liquid", rev = "404e85a9f1f4d76d727435269a7564e1e2f6a731"}
