@@ -4,30 +4,37 @@ import ring_theory.witt_vector.compare
 
 noncomputable theory
 local notation `ℤ/3ℤ` := zmod 3
+open real
+open_locale real
 
 /-!
 
 # Machine-Checked proofs in Lean
 
+## Introduction 
+
+I'm Rob Lewis. Just joined the Brown CS department this fall. 
+
 My goal with this talk:
 * Introduce you to the idea of proof assistants
-* Explain the structure and goals of Lean's library mathlib
 * Show you (quickly!) what it's like to use a proof assistant
+* Explain the structure and goals of Lean's library mathlib
 
 ## Following along
 
 * Install Lean and its supporting tools: <https://leanprover-community.github.io/get_started.html>
-* `leanproject get ...`
+* `leanproject get robertylewis/simons`
+* Open the `simons` *directory* in VSCode (File -> Open Folder...)
 
 ## What is a proof assistant?
 
-We want a language (or languages) to:
+A proof assistant provides a language (or languages) to:
 * define kinds of objects
 * define particular objects
 * state properties of those objects
 * prove that these properties hold
 
-Ideally, we want these proofs to be machine-checkable.
+It also provides a tool to mechanically check these proofs, down to logical axioms.
 Ideally, we want all of this to be human-readable.
 -/
 
@@ -35,10 +42,10 @@ Ideally, we want all of this to be human-readable.
 #check 0
 #check ∀ n : ℕ, 0 ≤ n
 
-lemma my_first_lemma : ∀ n, 0 ≤ n :=
+lemma my_first_lemma : ∀ n : ℕ, 0 ≤ n :=
 begin
   intro n,
-  apply nat.zero_le
+  apply nat.zero_le,
 end
 
 /-!
@@ -49,6 +56,7 @@ Depending on our choice of languages, we can talk about totally abstract things.
 -/
 
 #check category_theory.category
+#check differentiable
 #check fderiv
 
 /-!
@@ -62,19 +70,7 @@ Depending on our choice of languages, we can talk about totally abstract things.
 * Applications in education
 * It's incredibly addictive
 
-### History
-
-* Automath, Mizar: 1960s-70s, by and for mathematicians
-* LF, Isabelle, HOL, Coq, others: 80s-00s, by CS, applications in both
-* Lean: 2013, large mathematical userbase
-
-In addition to chugging along at bachelors/masters level math,
-there have been some verification highlights:
-* Four-color theorem
-* Kepler conjecture
-* Definition of a perfectoid space
-* Scholze's "lemma 9.4"
-
+Big leaf node projects may be exciting, but all of this requires *libraries*.
 
 
 ## A demo: complex numbers
@@ -86,20 +82,27 @@ structure complex :=
 (re : ℝ)
 (im : ℝ)
 
-def I : complex :=
-{ re := 0, im := 1 }
+def i : complex :=
+{ re := 0, 
+  im := 1 }
 
 def add (c1 c2 : complex) : complex :=
-{ re := c1.re + c2.re, im := c1.im + c2.im }
+{ re := c1.re + c2.re, 
+  im := c1.im + c2.im }
 
 def neg (c : complex) : complex :=
-{ re := -c.re, im := -c.im }
+{ re := -c.re, 
+  im := -c.im }
 
+@[simp]
 def mul (c1 c2 : complex) : complex :=
-{ re := c1.re * c2.re - c1.im * c2.im, im := c1.re * c2.im + c1.im * c2.re }
+{ re := c1.re * c2.re - c1.im * c2.im, 
+  im := c1.re * c2.im + c1.im * c2.re }
 
 def inv (c : complex) : complex :=
-{ re := 1 / c.re, im := 1 / c.im }
+let norm := (c.re^2 + c.im^2) in
+{ re := c.re / norm, 
+  im := - c.im / norm }
 
 instance : field complex :=
 { add := add,
@@ -127,15 +130,18 @@ instance : field complex :=
 /--
 `to_polar c` returns a pair of real numbers `(angle, radius)`.
 -/
-noncomputable def to_polar (c : complex) : ℝ × ℝ :=
-(real.arctan (c.im / c.re), real.sqrt (c.re^2 + c.im^2))
+def to_polar (c : complex) : ℝ × ℝ :=
+(arctan (c.im / c.re), sqrt (c.re^2 + c.im^2))
 
-noncomputable def from_polar (angle radius : ℝ) : complex :=
-{ re := radius * real.cos angle, im := radius * real.sin angle }
+def from_polar (angle radius : ℝ) : complex :=
+{ re := radius * cos angle, 
+  im := radius * sin angle }
 
 example (angle radius : ℝ) :
   to_polar (from_polar angle radius) = (angle, radius) :=
-sorry
+begin 
+  sorry
+end 
 
 end demo
 
@@ -149,6 +155,7 @@ and has a relatively large community of users interested in mathematics.
 *mathlib* is the de facto standard library for Lean.
 
 * <https://leanprover-community.github.io/> |  <https://github.com/leanprover-community/mathlib>
+* <https://leanprover.zulipchat.com/>
 * 700k lines of code, nearly 200 contributors
 * Collaborative open-source project
 * Lots of effort to make mathlib developments coherent, reusable
@@ -159,6 +166,8 @@ Overview of the library:
 Undergraduate math in mathlib:
 <https://leanprover-community.github.io/undergrad.html>
 
+People involved at all levels of mathematical maturity!
+Formalization is a great way to get undergraduates involved. 
 
 ### Noteworthy projects
 
