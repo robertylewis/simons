@@ -1,5 +1,4 @@
 import analysis.special_functions.trigonometric.arctan
-import thm95
 import ring_theory.witt_vector.compare
 
 noncomputable theory
@@ -193,8 +192,6 @@ Peter Scholze, June 5, 2021:
 A collaborative effort led by Johan Commelin.
 -/
 
-#check thm95
-#print axioms thm95
 
 /-! 
 #### Formalizing perfectoid spaces 
