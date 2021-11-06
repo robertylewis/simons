@@ -22,7 +22,8 @@ My goal with this talk:
 
 ## Following along
 
-* Install Lean and its supporting tools: <https://leanprover-community.github.io/get_started.html>
+* Install Lean and its supporting tools:
+  <https://leanprover-community.github.io/get_started.html>
 * `leanproject get robertylewis/simons`
 * Open the `simons` *directory* in VSCode (File -> Open Folder...)
 
@@ -34,7 +35,8 @@ A proof assistant provides a language (or languages) to:
 * state properties of those objects
 * prove that these properties hold
 
-It also provides a tool to mechanically check these proofs, down to logical axioms.
+It also provides a tool to mechanically check these proofs, 
+down to logical axioms.
 Ideally, we want all of this to be human-readable.
 -/
 
@@ -52,7 +54,8 @@ end
 
 Historically these tools have been applied with "objects" = "programs".
 But nothing inherently computational about them.
-Depending on our choice of languages, we can talk about totally abstract things.
+Depending on our choice of languages, 
+we can talk about totally abstract things.
 -/
 
 #check category_theory.category
@@ -70,7 +73,8 @@ Depending on our choice of languages, we can talk about totally abstract things.
 * Applications in education
 * It's incredibly addictive
 
-Big leaf node projects may be exciting, but all of this requires *libraries*.
+Big leaf node projects may be exciting, 
+but all of this requires *libraries*.
 
 
 ## A demo: complex numbers
@@ -149,12 +153,14 @@ end demo
 
 ## Lean and mathlib
 
-The Lean proof asssistant is relatively new, relatively ergonomic,
+The Lean proof asssistant is relatively new, 
+relatively ergonomic,
 and has a relatively large community of users interested in mathematics.
 
 *mathlib* is the de facto standard library for Lean.
 
-* <https://leanprover-community.github.io/> |  <https://github.com/leanprover-community/mathlib>
+* <https://leanprover-community.github.io/> 
+* <https://github.com/leanprover-community/mathlib>
 * <https://leanprover.zulipchat.com/>
 * 700k lines of code, nearly 200 contributors
 * Collaborative open-source project
@@ -176,19 +182,29 @@ A number of projects, some ongoing, have added to or built on the library.
 #### Liquid tensor experiment
 
 Peter Scholze, Dec 5, 2020:
-    I want to propose a challenge: Formalize the proof of the following theorem.
+    I want to propose a challenge: 
+    Formalize the proof of the following theorem.
+    
     **Theorem 1.1** (Clausen-Scholze).
-    Let 0 < p' < p ≤ 1 be real numbers, let S be a profinite set, and let V be a p-Banach space.
-    Let ℳₚ'(S) be the space of p'-measures on S. Then Extⁱ_Cond(Ab)(ℳₚ'(S), V) = 0 for i ≥ 1.
+    Let 0 < p' < p ≤ 1 be real numbers, 
+    let S be a profinite set, 
+    and let V be a p-Banach space.
+    Let ℳₚ'(S) be the space of p'-measures on S. 
+    
+    Then Extⁱ_Cond(Ab)(ℳₚ'(S), V) = 0 for i ≥ 1.
     ...
-    I think this may be my most important theorem to date.... Better be sure it’s correct.
+    I think this may be my most important theorem to date.... 
+    Better be sure it’s correct.
 
 Peter Scholze, June 5, 2021:
-    Exactly half a year ago I wrote the Liquid Tensor Experiment blog post...
-    I am excited to announce that the Experiment has verified the entire part of the argument
-    that I was unsure about. I find it absolutely insane that interactive proof assistants are
-    now at the level that within a very reasonable time span they can formally verify
-    difficult original research.
+    Exactly half a year ago I wrote the Liquid Tensor 
+    Experiment blog post...
+    I am excited to announce that the Experiment has verified 
+    the entire part of the argument that I was unsure about. 
+    I find it absolutely insane that interactive proof assistants 
+    are now at the level that 
+    within a very reasonable time span 
+    they can formally verify difficult original research.
 
 A collaborative effort led by Johan Commelin.
 -/
@@ -208,14 +224,17 @@ Kevin Buzzard, Johan Commelin, Patrick Massot (2020).
 
 A *cap set* is a subset of ℤ₃ⁿ containing no arithmetic progression. 
 
-Theorem (Ellenberg and Gijswijt, 2017): The largest possible size of a cap set is O(2.756^n).
+Theorem (Ellenberg and Gijswijt, 2017): 
+The largest possible size of a cap set is O(2.756^n).
 
 Sander Dahmen, Johannes Hölzl, Robert Y. Lewis (2019): 
 -/
 theorem cap_set_problem : ∃ B : ℝ,
   ∀ {n : ℕ} {A : finset (fin n → ℤ/3ℤ)},
-    (∀ x y z : fin n → ℤ/3ℤ, x ∈ A → y ∈ A → z ∈ A → x + y + z = 0 → x = y ∧ x = z) →
-    ↑A.card ≤ B * ((((3 : ℝ) / 8)^3 * (207 + 33*real.sqrt 33))^(1/3 : ℝ))^n :=
+    (∀ x y z : fin n → ℤ/3ℤ, 
+      x ∈ A → y ∈ A → z ∈ A → x + y + z = 0 → x = y ∧ x = z) →
+    ↑A.card ≤ 
+      B * ((((3 : ℝ) / 8)^3 * (207 + 33*real.sqrt 33))^(1/3 : ℝ))^n :=
 sorry
 
 /-! 
@@ -223,7 +242,8 @@ sorry
 
 Johan Commelin and Robert Y. Lewis (2021). 
 
-Abstract strategies for verifying Witt vector identities are very hard to formalize. 
+Abstract strategies for verifying Witt vector identities 
+are very hard to formalize. 
 With the right abstractions and some metaprogramming, 
 formal arguments can follow the same path as informal arguments.
 -/
@@ -242,7 +262,8 @@ Plenty of ongoing projects:
 * Transition from Lean 3 to Lean 4
 * 8- and 24-dim sphere packings? 
 
-CMU recently received a $20m donation to found the Hoskinson Center for Formal Mathematics. 
+CMU recently received a $20m donation to found 
+the Hoskinson Center for Formal Mathematics. 
 
 Various events planned in the medium-term future:
 * Lorentz Center in Leiden, March 2022 (ask me for details!)
